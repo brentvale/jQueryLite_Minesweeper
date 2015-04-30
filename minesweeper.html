@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Minesweeper</title>
+    <script src="jquery_lite.js"></script>
+    <script src="minesweeper.js"></script>
+    <script src="MinesweeperUI.js"></script>
+    <style>
+      .main {
+        width: 400px;
+      }
+
+      .tile {
+        height:30px;
+        width: 30px;
+        margin: 5px;
+        background-color:black;
+        float: left;
+        box-sizing: border-box;
+      }
+
+    </style>
+  </head>
+  <body>
+
+    <div class="main"></div>
+    <script>
+      var $main = $l(".main");
+      new minesweeperUI($main).render();
+    </script>
+  </body>
+</html>
