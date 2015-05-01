@@ -55,7 +55,6 @@
               resolve(xmlhttp.responseText);
            } else if(xmlhttp.status == 400) {
              reject("There was an error 400")
-              // alert('There was an error 400')
            } else {
              reject('something else other than 200 was returned')
            }
@@ -66,8 +65,6 @@
     });
     promise.then(requestedContent.success, requestedContent.error);
     return promise;
-    //return new MyPromise(function(requestedContent["success"], requestedContent["error"])
-  // );
   };
 
   function DOMNodeCollection(htmlElements) {
@@ -171,11 +168,3 @@
   };
 
 })();
-
-
-
-
-
-// $l.ajax({url: "something.com", success: function(data){
-//   console.log(data)
-// }})

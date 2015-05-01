@@ -5,28 +5,31 @@
     <script src="jquery_lite.js"></script>
     <script src="minesweeper.js"></script>
     <script src="MinesweeperUI.js"></script>
+    <script src="tile.js"></script>
     <style>
-      .main {
-        width: 400px;
-      }
 
+    #board {
+      margin-left: 30%;
+      margin-right: 30%;
+      height: 500px;
+    }
       .tile {
-        height:30px;
-        width: 30px;
-        margin: 5px;
+        height:5%;
+        width: 8%;
+        margin: 1%;
         background-color:black;
         float: left;
-        box-sizing: border-box;
       }
 
     </style>
   </head>
   <body>
 
-    <div class="main"></div>
+    <div id="board"></div>
     <script>
-      var $main = $l(".main");
-      new minesweeperUI($main).render();
+      $l(function(){
+        var game = new MinesweeperUI($l('#board'));
+      });
     </script>
   </body>
 </html>

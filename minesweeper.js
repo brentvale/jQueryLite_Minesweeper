@@ -9,30 +9,61 @@ var DELTAS = [
   [ 1,  1]
 ];
 
-function Minesweeper() {
-
-}
-
-function Tile (board, pos) {
+function Minesweeper(board) {
   this.board = board;
-  this.pos = pos;
-  this.bombed = false;
-  this.explored = false;
-  this.flagged = false;
-}
+  this.grid = this.createState();
+  this.placeBombs();z
+};
 
-Tile.prototype.isBombed = function(){
-  return this.bombed;
-}
+Minesweeper.prototype.won = function () {
+  //iterate through the grid
+  var won = true;
+  for(var i = 0; i < this.grid.length; i++){
+    if(!this.grid[i].explored && !this.grid[i].bomb){
+       won = false;
+       return won;
+    }
+  }
+  //check each tiles explored + bombed
+  return won;
+};
 
-Tile.prototype.isExplored = function(){
-  return this.explored;
-}
+Minesweeper.prototype.lost = function () {
+  var lost = false;
+  for(var i = 0; i < this.grid.length; i++){
+    if(this.grid[i].explored && this.grid[i].bomb){
+      lost = true;
+    }
+  }
+  //check each tiles explored + bombed
+  return lost;
+};
 
-Tile.prototype.isFlagged = function(){
-  return this.flagged;
-}
+Minesweeper.prototype.createState = function () {
+  var tilesArray = []
+  for(var i = 0; i < 10; i++){
+    for(var j = 0; j < 10; j++){
+      tilesArray.push(
+        new Tile(this.board, [i,j])
+      );
+    }
+  }
+  
+  return tilesArray;
+};
 
-function Board() {
+Minesweeper.prototype.placeBombs = function () {
+  
+};
 
-}
+Minesweeper.prototype.tile = function (coords) {
+  
+};
+
+Minesweeper.prototype.explore = function (coords) {
+  
+};
+
+Minesweeper.prototype.flag = function (coords) {
+  
+};
