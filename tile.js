@@ -14,10 +14,17 @@ var _onBoard = function(coords) {
 
 Tile.prototype.explore = function(){
   //if tile is explored return
-  
+  if(this.explored){
+    return;
+  }
   //set explored to true
-  
+  this.explored = true;
   //if no neighbors have bombs explore each of the neighbors
+  if(this.neighborBombCount === 0){
+    this.neighbors().forEach(function(tile){
+      tile.explore();
+    });
+  }
 };
 
 Tile.prototype.flag = function(){

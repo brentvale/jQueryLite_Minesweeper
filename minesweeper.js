@@ -12,7 +12,8 @@ var DELTAS = [
 function Minesweeper(board) {
   this.board = board;
   this.grid = this.createState();
-  this.placeBombs();z
+  this.bombsArray = this.createBombs();
+  this.placeBombs();
 };
 
 Minesweeper.prototype.won = function () {
@@ -41,27 +42,45 @@ Minesweeper.prototype.lost = function () {
 
 Minesweeper.prototype.createState = function () {
   var tilesArray = []
-  for(var i = 0; i < 10; i++){
-    for(var j = 0; j < 10; j++){
-      tilesArray.push(
-        new Tile(this.board, [i,j])
+  for(var i = 1; i < 11; i++){
+    tilesArray.push([]);
+    for(var j = 1; j < 11; j++){
+      tilesArray[i-1].push(
+        new Tile(this.board, {row:i, col:j})
       );
     }
   }
-  
   return tilesArray;
 };
 
+Minesweeper.prototype.createBombs = function () {
+  //will eventually take a number depending on the difficulty level
+  //default: choose 15 tiles to have bombs
+  var bombers = [];
+  while(bombers.length < 15){
+    var bombIndex = Math.floor(Math.random() * 100);
+    if(bombers.indexOf(bombIndex) < 0){
+      bombers.push(bombIndex)
+    } 
+  }
+  return bombers;
+};
+
 Minesweeper.prototype.placeBombs = function () {
-  
+  for(var i = 0; i < this.bombsArray.length; i++){
+    var tensBombIndex = Math.floor(this.bombsArray[i] / 10);
+    var onesBombIndex = this.bombsArray[i] % 10;
+    var tileForBomb = this.grid[tensBombIndex][onesBombIndex];
+    tileForBomb.bombed = true;
+  }
 };
 
 Minesweeper.prototype.tile = function (coords) {
-  
+  return this.grid[coords.row - 1][coords.col - 1];
 };
 
 Minesweeper.prototype.explore = function (coords) {
-  
+  this.tile(coords).explore();
 };
 
 Minesweeper.prototype.flag = function (coords) {
