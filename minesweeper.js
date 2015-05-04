@@ -1,14 +1,3 @@
-var DELTAS = [
-  [-1, -1],
-  [-1,  0],
-  [-1,  1],
-  [ 0, -1],
-  [ 0,  1],
-  [ 1, -1],
-  [ 1,  0],
-  [ 1,  1]
-];
-
 function Minesweeper(board) {
   this.board = board;
   this.grid = this.createState();
@@ -42,12 +31,19 @@ Minesweeper.prototype.lost = function () {
 
 Minesweeper.prototype.createState = function () {
   var tilesArray = []
-  for(var i = 1; i < 11; i++){
+  for(var i = 0; i < 10; i++){
     tilesArray.push([]);
-    for(var j = 1; j < 11; j++){
-      tilesArray[i-1].push(
-        new Tile(this.board, {row:i, col:j})
+    for(var j = 0; j < 10; j++){
+      tilesArray[i].push(
+        new Tile({row:i, col:j})
       );
+    }
+  }
+  //tilesArray has to include a complete set of tiles before each tile's 
+  //grid can be set
+  for(var i = 0; i < tilesArray.length; i++){
+    for(var j = 0; j < tilesArray[i].length; j++){
+      tilesArray[i][j].grid = tilesArray;
     }
   }
   return tilesArray;
