@@ -1,6 +1,8 @@
+var colors = ["blue", "green", "red", "purple", "brown"]
+
 function MinesweeperUI($lBoard) {
   this.board = $lBoard;
-  this.game = new Minesweeper(this.board);
+  this.game = new Minesweeper();
   this.render();
 }
 
@@ -17,9 +19,22 @@ MinesweeperUI.prototype.render = function() {
     this.board.append(div);
     var coords = {row:row, col:col};
     var gameTile = this.game.tile(coords);
+    
     if(gameTile.explored){
-      div.addClass('explored')
+      div.addClass('explored');
+      var tileDispNum = gameTile.neighborBombCount();
+      div.html(tileDispNum.toString());
+      var divColor = 
     }
+    // if(gameTile.bomb){
+//       div.removeClass('explored');
+//       div.addClass('bomb');
+//       div.html("bomb");
+//     }
+    if(gameTile.flagged){
+      div.addClass('flagged');
+    }
+  
   }
 
   this.board.find('.tile').on("click", this.handleClick.bind(this));
@@ -27,11 +42,12 @@ MinesweeperUI.prototype.render = function() {
 }
 
 MinesweeperUI.prototype.handleClick = function (event) {
-  event.preventDefault();
   var clickedTile = $l(event.target);
   var tileRow = clickedTile.attr("data-row");
   var tileCol = clickedTile.attr("data-col");
   this.game.explore({row:tileRow, col:tileCol});
+  
+  
   if(this.game.won()){
     alert("you've won");
   } else if (this.game.lost()){
@@ -44,5 +60,9 @@ MinesweeperUI.prototype.handleClick = function (event) {
 
 MinesweeperUI.prototype.handleRightClick = function (event) {
   event.preventDefault();
-  //
+  var clickedTile = $l(event.target);
+  var tileRow = clickedTile.attr("data-row");
+  var tileCol = clickedTile.attr("data-col");
+  this.game.flag({row:tileRow, col:tileCol});
+  this.render();
 };
