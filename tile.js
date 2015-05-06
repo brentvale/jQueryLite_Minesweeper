@@ -47,7 +47,7 @@ Tile.prototype.neighbors = function(){
     
     if(_onBoard(neighborRow, neighborCol)){
       var tileOnGrid = this.grid[neighborRow][neighborCol];
-      console.log("neighbors is : " + neighbors);
+      // console.log("neighbors is : " + neighbors);
       neighbors.push(tileOnGrid);
     }
   }

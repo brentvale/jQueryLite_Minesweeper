@@ -1,9 +1,8 @@
-var colors = ["blue", "green", "red", "purple", "brown"]
-
-function MinesweeperUI($lBoard) {
+function MinesweeperUI($lBoard, audio) {
   this.board = $lBoard;
   this.game = new Minesweeper();
   this.render();
+  this.audio = audio;
 }
 
 MinesweeperUI.prototype.render = function() {
@@ -24,13 +23,15 @@ MinesweeperUI.prototype.render = function() {
       div.addClass('explored');
       var tileDispNum = gameTile.neighborBombCount();
       div.html(tileDispNum.toString());
-      var divColor = 
+      var classToAdd = "color" + tileDispNum.toString();
+      div.addClass(classToAdd);
     }
-    // if(gameTile.bomb){
-//       div.removeClass('explored');
+    if(gameTile.bomb){
+      // div.removeClass('explored');
 //       div.addClass('bomb');
-//       div.html("bomb");
-//     }
+      // div.html("bomb");
+      
+    }
     if(gameTile.flagged){
       div.addClass('flagged');
     }
@@ -51,7 +52,22 @@ MinesweeperUI.prototype.handleClick = function (event) {
   if(this.game.won()){
     alert("you've won");
   } else if (this.game.lost()){
-    alert("you've lost");
+    var count = 1;
+    this.audio.play();
+    var animationInterval = window.setInterval(function() {
+      clickedTile.addClass("explosion");
+      var explodeClass = "explode-" + count;
+      if(count > 1){
+        var classToRemove = "explode-" + (count-1);
+        clickedTile.removeClass(classToRemove);
+      }
+      clickedTile.addClass(explodeClass);
+      count++;
+    },40)
+    window.setTimeout(function() {
+      clearInterval(animationInterval);
+      alert("you lose");
+    },640);
   } else {
     this.render();
   }
@@ -66,3 +82,26 @@ MinesweeperUI.prototype.handleRightClick = function (event) {
   this.game.flag({row:tileRow, col:tileCol});
   this.render();
 };
+
+MinesweeperUI.prototype.animateSprite = function (target) {
+  var i = 1;
+  function timeout() {
+      setTimeout(function () {
+          // Do Something Here
+          // Then recall the parent function to
+          // create a recursive loop.
+          timeout();
+      }, 1000);
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
