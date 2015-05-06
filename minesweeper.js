@@ -11,6 +11,7 @@ Minesweeper.prototype.won = function () {
     for(var j = 0; j < this.grid[i].length; j++){
       if(!this.grid[i][j].explored && !this.grid[i][j].bomb){
         won = false;
+        return won;
       }
     }
     //check each tiles explored + bombed

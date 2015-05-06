@@ -50,6 +50,7 @@ MinesweeperUI.prototype.handleClick = function (event) {
   
   
   if(this.game.won()){
+    debugger
     alert("you've won");
   } else if (this.game.lost()){
     var count = 1;
@@ -82,26 +83,3 @@ MinesweeperUI.prototype.handleRightClick = function (event) {
   this.game.flag({row:tileRow, col:tileCol});
   this.render();
 };
-
-MinesweeperUI.prototype.animateSprite = function (target) {
-  var i = 1;
-  function timeout() {
-      setTimeout(function () {
-          // Do Something Here
-          // Then recall the parent function to
-          // create a recursive loop.
-          timeout();
-      }, 1000);
-  }
-};
-
-
-
-
-
-
-
-
-
-
-
