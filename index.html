@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Minesweeper</title>
+    <script src="jquery_lite.js"></script>
+    <script src="minesweeper.js"></script>
+    <script src="MinesweeperUI.js"></script>
+    <script src="tile.js"></script>
+    <style>
+
+    #board {
+     /* margin-left: 30%;
+      margin-right: 30%;*/
+      height: 680px;
+      width: 680px;
+      font-family: "Sans-serif";
+      font-weight: bold;
+    }
+    .tile {
+      height:64px;
+      width: 64px;
+      margin: 2px;
+      background-color:black;
+      float: left;
+      text-align:center;
+    }
+    
+    .explored {
+      background-color: white;
+    }
+    
+    .bomb {
+      background-color: white;
+      text-align:center;
+      font-size:10px;
+    }
+    
+    .flagged {
+      background-color: red;
+    }
+    
+    .color0 {
+      color: gray;
+      background-color:#e5e5e5;
+    }
+    
+    .color1 {
+      color: blue;
+      background-color:#c8c9ff;
+    }
+    
+    .color2 {
+      color: green;
+      background-color:#c8ffcf;
+    }
+    
+    .color3 {
+      color: red;
+      background-color:#ffc4c4;
+    }
+    
+    .color4 {
+      color: #340f65;
+      background-color:#c79dff;
+    }
+    
+    .color5 {
+      color: #6F1C25;
+      background-color:#dd9098;
+    }
+    
+    .color6 {
+      color: #3bb2af;
+      background-color:#d7fffe;
+    }
+    
+    .color7 {
+      color: black;
+      background-color:#787878;
+    }
+    
+    div.explosion {
+      height:64px;
+      width:64px;
+    }
+    
+    .explode-1 {
+      background: url('explosion.png') 0 0;
+    }
+    .explode-2 {
+      background: url('explosion.png') -64px 0;
+    }
+    .explode-3 {
+      background: url('explosion.png') -128px 0;
+    }
+    .explode-4 {
+      background: url('explosion.png') -192px 0;
+    }
+    .explode-5 {
+      background: url('explosion.png') 0 -64px;
+    }
+    .explode-6 {
+      background: url('explosion.png') -64px -64px;
+    }
+    .explode-7 {
+      background: url('explosion.png') -128px -64px;
+    }
+    .explode-8 {
+      background: url('explosion.png') -192px -64px;
+    }
+    .explode-9 {
+      background: url('explosion.png') 0 -128px;
+    }
+    .explode-10 {
+      background: url('explosion.png') -64px -128px;      
+    }
+    .explode-11 {
+      background: url('explosion.png') -128px -128px;
+    }
+    .explode-12 {
+      background: url('explosion.png') -192px -128px;
+    }
+    .explode-13 {
+      background: url('explosion.png') 0 -192px;
+    }
+    .explode-14 {
+      background: url('explosion.png') -64px -192px;
+    }
+    .explode-15 {
+      background: url('explosion.png') -128px -192px;
+    }
+    .explode-16 {
+      background: url('explosion.png') -192px -192px;
+    }
+  
+    </style>
+  </head>
+  <body>
+
+    <div id="board">
+      
+    </div>
+    
+    <script>
+      $l(function(){
+        var game = new MinesweeperUI($l('#board'), new Audio("explosion.wav"));
+      });
+    </script>
+    
+  </body>
+</html>
