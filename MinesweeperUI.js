@@ -27,9 +27,9 @@ MinesweeperUI.prototype.render = function() {
       div.addClass(classToAdd);
     }
     if(gameTile.bomb){
-      // div.removeClass('explored');
-//       div.addClass('bomb');
-      // div.html("bomb");
+      div.removeClass('explored');
+      div.addClass('bomb');
+      div.html("bomb");
       
     }
     if(gameTile.flagged){
@@ -52,6 +52,7 @@ MinesweeperUI.prototype.handleClick = function (event) {
   if(this.game.won()){
     debugger
     alert("you've won");
+    this.reset();
   } else if (this.game.lost()){
     var count = 1;
     this.audio.play();
@@ -65,9 +66,11 @@ MinesweeperUI.prototype.handleClick = function (event) {
       clickedTile.addClass(explodeClass);
       count++;
     },40)
+    var that = this;
     window.setTimeout(function() {
       clearInterval(animationInterval);
       alert("you lose");
+      that.reset();
     },640);
   } else {
     this.render();
@@ -81,5 +84,10 @@ MinesweeperUI.prototype.handleRightClick = function (event) {
   var tileRow = clickedTile.attr("data-row");
   var tileCol = clickedTile.attr("data-col");
   this.game.flag({row:tileRow, col:tileCol});
+  this.render();
+};
+
+MinesweeperUI.prototype.reset = function () {
+  this.game = new Minesweeper();
   this.render();
 };
