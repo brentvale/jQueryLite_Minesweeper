@@ -9,12 +9,19 @@
     <style>
 
     #board {
-     /* margin-left: 30%;
-      margin-right: 30%;*/
       height: 680px;
       width: 680px;
       font-family: "Sans-serif";
       font-weight: bold;
+      margin:auto;
+    }
+    #showbombs {
+      background-color: black;
+      color: white;
+      border-radius:5px;
+      height: 70px;
+      width: 150px;
+      text-align:center;
       margin:auto;
     }
     .tile {
@@ -133,20 +140,29 @@
     .explode-16 {
       background: url('explosion.png') -192px -192px;
     }
+    .show {
+      font-size:25px;
+      display:inline-block;
+      margin-top:15px;
+    }
   
     </style>
   </head>
   <body>
-
-    <div id="board">
       
-    </div>
+  <div id="board">
+  </div>
+
+  <div id="showbombs">
     
-    <script>
-      $l(function(){
-        var game = new MinesweeperUI($l('#board'), new Audio("explosion.wav"));
-      });
-    </script>
+  </div>
+      
+    
+  <script>
+    $l(function(){
+      var game = new MinesweeperUI($l('#board'), $l('#showbombs'), new Audio("explosion.wav"));
+    });
+  </script>
     
   </body>
 </html>

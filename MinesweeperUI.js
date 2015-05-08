@@ -1,12 +1,16 @@
-function MinesweeperUI($lBoard, audio) {
+function MinesweeperUI($lBoard, $lshowBombs, audio) {
   this.board = $lBoard;
+  this.showBombsDiv = $lshowBombs;
   this.game = new Minesweeper();
   this.render();
   this.audio = audio;
+  this.showBombs = false;
 }
 
 MinesweeperUI.prototype.render = function() {
   this.board.empty();
+  this.showBombsDiv.empty();
+  //place tiles
   for (var i = 0; i < 100; i++){
     var div = document.createElement("div");
     div = $l(div);
@@ -27,19 +31,32 @@ MinesweeperUI.prototype.render = function() {
       div.addClass(classToAdd);
     }
     if(gameTile.bomb){
-      div.removeClass('explored');
-      div.addClass('bomb');
-      div.html("bomb");
-      
+      if(this.showBombs){
+        div.removeClass('explored');
+        div.addClass('bomb');
+        div.html("bomb");
+      }
     }
     if(gameTile.flagged){
       div.addClass('flagged');
     }
-  
   }
-
+  //place show bombs button
+  var showBombsButton = document.createElement("div");
+  showBombsButton = $l(showBombsButton);
+  var buttonText;
+  if(this.showBombs){
+    buttonText = "Hide Bombs"
+  } else {
+    buttonText = "Show Bombs"
+  }
+  showBombsButton.html(buttonText);
+  showBombsButton.addClass("show");
+  this.showBombsDiv.append(showBombsButton);
+  //add event handlers
   this.board.find('.tile').on("click", this.handleClick.bind(this));
   this.board.find('.tile').on("contextmenu", this.handleRightClick.bind(this));
+  this.showBombsDiv.find('.show').on("click", this.handleShowBombsClick.bind(this));
 }
 
 MinesweeperUI.prototype.handleClick = function (event) {
@@ -50,7 +67,6 @@ MinesweeperUI.prototype.handleClick = function (event) {
   
   
   if(this.game.won()){
-    debugger
     alert("you've won");
     this.reset();
   } else if (this.game.lost()){
@@ -75,7 +91,6 @@ MinesweeperUI.prototype.handleClick = function (event) {
   } else {
     this.render();
   }
-
 };
 
 MinesweeperUI.prototype.handleRightClick = function (event) {
@@ -89,5 +104,15 @@ MinesweeperUI.prototype.handleRightClick = function (event) {
 
 MinesweeperUI.prototype.reset = function () {
   this.game = new Minesweeper();
+  this.render();
+};
+
+MinesweeperUI.prototype.handleShowBombsClick = function() {
+  debugger
+  if(this.showBombs){
+    this.showBombs = false;
+  } else {
+    this.showBombs = true;
+  }
   this.render();
 };
