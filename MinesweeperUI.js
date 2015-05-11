@@ -108,7 +108,6 @@ MinesweeperUI.prototype.reset = function () {
 };
 
 MinesweeperUI.prototype.handleShowBombsClick = function() {
-  debugger
   if(this.showBombs){
     this.showBombs = false;
   } else {
