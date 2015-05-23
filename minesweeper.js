@@ -7,7 +7,7 @@ function Minesweeper(board) {
 Minesweeper.prototype.won = function () {
   //iterate through the grid
   var won = true;
-  debugger
+  
   for(var i = 0; i < this.grid.length; i++){
     for(var j = 0; j < this.grid[i].length; j++){
       if(!this.grid[i][j].explored && !this.grid[i][j].bomb){
